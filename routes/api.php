@@ -17,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// TODO Factoriser l'appel au contrôleur, problème lors de l'appel de 'route:list'
+Route::apiResource('post', 'App\Http\Controllers\PostController');
