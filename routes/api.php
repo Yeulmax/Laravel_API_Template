@@ -19,4 +19,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // TODO Factoriser l'appel au contrôleur, problème lors de l'appel de 'route:list'
-Route::apiResource('post', 'App\Http\Controllers\PostController');
+//TODO use sanctum ?
+Route::middleware('auth:api')->group(function(){
+    Route::apiResource('post', 'App\Http\Controllers\PostController');
+});
+
+
+
