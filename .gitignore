@@ -30,3 +30,5 @@ Homestead.json
 /Cahier_des_charges.txt
 /.idea/API_Template.iml
 /.idea/.gitignore
+/public/css/
+/public/js/

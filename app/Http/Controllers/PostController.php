@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\API\BaseController;
 use App\Models\Post;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Http\Resources\PostResource;
 
-class PostController extends Controller
+class PostController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +18,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Post::orderByDesc('created_at')->get();
+        $posts = Post::all();
+        return $this->sendResponse(PostResource::collection($posts), 'Posts fetched.');
+
+        //return Post::orderByDesc('created_at')->get();
     }
 
     /**

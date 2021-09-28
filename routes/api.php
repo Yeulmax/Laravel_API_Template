@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\PostController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,11 +21,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// TODO Factoriser l'appel au contrôleur, problème lors de l'appel de 'route:list'
-//TODO use sanctum ?
-Route::middleware('auth:api')->group(function(){
-    Route::apiResource('post', 'App\Http\Controllers\PostController');
+Route::middleware('auth:sanctum')->group(function(){
+    Route::resource('posts', PostController::class);
 });
 
-
-
+Route::post('login', [AuthController::class, 'signin']);
+Route::post('register', [AuthController::class, 'signup']);
