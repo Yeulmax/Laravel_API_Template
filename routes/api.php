@@ -21,9 +21,24 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//Authentification
+Route::post('login', [AuthController::class, 'signin']);
+Route::post('register', [AuthController::class, 'signup']);
+
+// Liste des posts
 Route::middleware('auth:sanctum')->group(function(){
     Route::resource('posts', PostController::class);
 });
 
-Route::post('login', [AuthController::class, 'signin']);
-Route::post('register', [AuthController::class, 'signup']);
+// Post trié par utilisateur
+
+// Post trié par utilisateur courant
+Route::middleware('auth:sanctum')->group(function(){
+    Route::get('my_posts/{id}', [PostController::class, 'my_posts']);
+});
+/*
+Route::middleware('auth:sanctum')->group(function(){
+    Route::resource([AuthController::class, 'signin'];
+});
+
+*/

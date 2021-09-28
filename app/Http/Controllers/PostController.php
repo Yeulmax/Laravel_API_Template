@@ -39,6 +39,7 @@ class PostController extends BaseController
         }
 
         //TODO Ajout gestion erreur
+        //TODO corrélation avec 'created_by'
     }
 
     /**
@@ -79,5 +80,12 @@ class PostController extends BaseController
     public function destroy(Post $post)
     {
         if($post->delete()) return response('Post supprimé', 200);
+    }
+
+    public function my_posts(Request $request, int $id){
+        $posts = Post::all();
+        return response()->json([
+            'success' => $request->user()
+        ], 200);
     }
 }
