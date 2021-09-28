@@ -82,10 +82,16 @@ class PostController extends BaseController
         if($post->delete()) return response('Post supprimé', 200);
     }
 
-    public function my_posts(Request $request, int $id){
-        $posts = Post::all();
+    //TODO doc
+    //Posts de l'utilisateur authentifié
+    public function my_posts(Request $request){
+
+        //On filtre les posts
+        $posts = Post::all()->where('created_by', $request->user()->id);
+
+        //Envoi de la réponse
         return response()->json([
-            'success' => $request->user()
+            'success' => $posts
         ], 200);
     }
 }

@@ -34,7 +34,7 @@ Route::middleware('auth:sanctum')->group(function(){
 
 // Post trié par utilisateur courant
 Route::middleware('auth:sanctum')->group(function(){
-    Route::get('my_posts/{id}', [PostController::class, 'my_posts']);
+    Route::get('my_posts', [PostController::class, 'my_posts']);
 });
 /*
 Route::middleware('auth:sanctum')->group(function(){
