@@ -21,6 +21,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//TODO Doc
+
 //Authentification
 Route::post('login', [AuthController::class, 'signin']);
 Route::post('register', [AuthController::class, 'signup']);
@@ -31,11 +33,15 @@ Route::middleware('auth:sanctum')->group(function(){
 });
 
 // Post trié par utilisateur
-
+Route::middleware('auth:sanctum')->group(function(){
+    Route::get('posts/user/{id}', [PostController::class, 'postsByUserId']);
+});
 // Post trié par utilisateur courant
 Route::middleware('auth:sanctum')->group(function(){
-    Route::get('my_posts', [PostController::class, 'my_posts']);
+    Route::get('my_posts', [PostController::class, 'currentUserPosts']);
 });
+
+//TODO a supprimer
 /*
 Route::middleware('auth:sanctum')->group(function(){
     Route::resource([AuthController::class, 'signin'];
