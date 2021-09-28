@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\PostController;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,14 @@ use App\Http\Controllers\PostController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+//TODO A retirer
+//Active les logs de la BDD dans storage/logs
+\DB::listen(function($sql) {
+    \Log::info($sql->sql);
+    \Log::info($sql->bindings);
+    \Log::info($sql->time);
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -32,13 +41,18 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::resource('posts', PostController::class);
 });
 
+// Post trié par titre
+Route::middleware('auth:sanctum')->group(function(){
+    Route::get('posts/title/{title}', [PostController::class, 'findByTitle']);
+});
+
 // Post trié par utilisateur
 Route::middleware('auth:sanctum')->group(function(){
-    Route::get('posts/user/{id}', [PostController::class, 'postsByUserId']);
+    Route::get('posts/user/{id}', [PostController::class, 'findByUserId']);
 });
 // Post trié par utilisateur courant
 Route::middleware('auth:sanctum')->group(function(){
-    Route::get('my_posts', [PostController::class, 'currentUserPosts']);
+    Route::get('my_posts', [PostController::class, 'findByCurrentUser']);
 });
 
 //TODO a supprimer
