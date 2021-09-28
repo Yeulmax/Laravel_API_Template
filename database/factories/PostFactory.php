@@ -24,7 +24,7 @@ class PostFactory extends Factory
         return [
             'title'        => $this->faker->sentence(4, true),
             'content'      => $this->faker->paragraphs(3, true),
-            'created_by'   => $this->faker->numberBetween(1, 5),
+            'created_by'   => $this->faker->numberBetween(1, 6),
             'is_public'    => $this->faker->boolean(60)
         ];
     }
