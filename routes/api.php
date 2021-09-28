@@ -6,53 +6,34 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\DB;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-//TODO A retirer
-//Active les logs de la BDD dans storage/logs
-\DB::listen(function($sql) {
-    \Log::info($sql->sql);
-    \Log::info($sql->bindings);
-    \Log::info($sql->time);
-});
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 //TODO Doc
-
 //Authentification
 Route::post('login', [AuthController::class, 'signin']);
 Route::post('register', [AuthController::class, 'signup']);
+
+//Profil de l'utilisateur authentifié
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 // Liste des posts
 Route::middleware('auth:sanctum')->group(function(){
     Route::resource('posts', PostController::class);
 });
 
-// Post trié par titre
+// Post trié par utilisateur courant
 Route::middleware('auth:sanctum')->group(function(){
-    Route::get('posts/title/{title}', [PostController::class, 'findByTitle']);
+    Route::get('my_posts', [PostController::class, 'findByCurrentUser']);
 });
 
 // Post trié par utilisateur
 Route::middleware('auth:sanctum')->group(function(){
     Route::get('posts/user/{id}', [PostController::class, 'findByUserId']);
 });
-// Post trié par utilisateur courant
+
+// Post trié par titre
 Route::middleware('auth:sanctum')->group(function(){
-    Route::get('my_posts', [PostController::class, 'findByCurrentUser']);
+    Route::get('posts/title/{title}', [PostController::class, 'findByTitle']);
 });
 
 //TODO a supprimer

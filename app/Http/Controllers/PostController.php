@@ -21,8 +21,6 @@ class PostController extends BaseController
     {
         $posts = Post::all();
         return $this->sendResponse(PostResource::collection($posts), 'Posts fetched.');
-
-        //return Post::orderByDesc('created_at')->get();
     }
 
     /**
@@ -33,15 +31,14 @@ class PostController extends BaseController
      */
     public function store(Request $request)
     {
+        //On complète la requête avec l'id_user
+        $request->request->add(['created_by' => $request->user()->id]);
 
         if(Post::create($request->all())){
             return response()->json([
                 'success' => 'Post créée avec succès'
             ], 200);
         }
-
-        //TODO Ajout gestion erreur
-        //TODO corrélation avec 'created_by'
     }
 
     /**
@@ -68,13 +65,7 @@ class PostController extends BaseController
             return response()->json([
                 'success' => 'Post mis à jour avec succès'
             ], 200);
-        }else{
-            return response()->json([
-                'error' => 'Erreur lors de la mise à jour'
-            ], 500);
         }
-        //TODO Ajout gestion erreur
-
     }
 
     /**
@@ -127,7 +118,8 @@ class PostController extends BaseController
     {
 
         /* Ne semble pas fonctionner sur cette version de Laravel, à approfondir
-         * Solution de contournement: Création d'une requête RAW
+         * Solution de contournement: Création d'une requête SQL RAW
+         * Solution scalable: Mise en place de Laravel Scout
          *
          * $posts = Post::all();
          * $postsFiltre = $posts->where('title', 'LIKE', '%'.$title.'%')->where('is_public','IS', TRUE) ;
