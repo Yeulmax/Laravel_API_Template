@@ -35,11 +35,3 @@ Route::middleware('auth:sanctum')->group(function(){
 Route::middleware('auth:sanctum')->group(function(){
     Route::get('posts/title/{title}', [PostController::class, 'findByTitle']);
 });
-
-//TODO a supprimer
-/*
-Route::middleware('auth:sanctum')->group(function(){
-    Route::resource([AuthController::class, 'signin'];
-});
-
-*/
