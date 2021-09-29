@@ -14,7 +14,7 @@
 
 ## Configuration Laragon
 1. Sélectionner le dossier 'public' du projet comme DocumentRoot
-2. Création d'une BDD MySQL [username: root, password: ' ']
+2. Création d'une BDD MySQL **'api_template'** ▶️ (username: root, password: ' ')
 
 ## Routes API
 (Les paramètres sont passés via un multipart form)
