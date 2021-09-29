@@ -17,7 +17,7 @@
 2. Création d'une BDD MySQL **'api_template'** ▶️ (username: root, password: ' ')
 
 ## Routes API
-(Les paramètres sont passés via un multipart form)
+‼️  *Les paramètres sont passés via un multipart form*
 * #### /register : Inscription utilisateur
   * **POST** http://api_template/api/register
     * name
