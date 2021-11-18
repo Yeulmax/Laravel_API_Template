@@ -8,7 +8,7 @@
 1. `git clone https://github.com/Yeulmax/API_Template.git`
 2. `composer update`
 3. `composer install`
-4. `copy|cp .env.example .env`
+4. `copy .env.example .env`
 5. `php artisan key:generate`
 6. `php artisan migrate --seed`
 
