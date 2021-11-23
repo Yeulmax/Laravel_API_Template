@@ -1,5 +1,8 @@
 # API_Template
 ## Template d'API Laravel avec authentification via Sanctum 
+* La BDD est composé de 2 modèles : User et Post
+* Il est possible de trier les Post d'un utilisateur spécifique, soit via un id_user, soit via l'utilisateur connecté
+* Une recherche sur les titres est possible. Elle ne retourne que les Post qui sont publiés.
 * Token Authentification pour la partie API
 * SPA Authentification pour la partie Front (au travers d'un module Vue.JS)
   * L'utilisateur peut créer un compte via la partie front et l'utiliser sur l'API
